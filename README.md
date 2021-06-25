@@ -1,4 +1,4 @@
-# Public-Permissioned Blockchain 
+# Public Permissioned Blockchain 
 
 
 ### Contenuto
