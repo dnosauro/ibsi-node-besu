@@ -1,0 +1,5 @@
+networkId: 1234
+besu_node_perm_account: 0x9a8abfFFFFFF0a28d1dd5fbc71f420974cc86bc
+besu_node_perm_key: 0xc96db4b998944040bf0bc85cf67b862fa8FFFFFFFFF0f275e9013010be
+besu_node_perm_endpoint: http://127.0.0.1:8545
+

@@ -1,0 +1,13 @@
+p2p_host: 127.0.0.1
+p2p_port: 33303
+besu_version: 21.1.4
+container_name: node4
+rpc_port: 8575
+ws_port: 8576
+metrics_port: 9575
+alethio_server_url: http://127.0.0.1:3010 
+alethio_account_email: nome.cognome@node4.it
+alethio_client_node_name: posteitaliane4
+node_key: "0x3ee6ffffffff804131a3d5ffffffffff0a7551f1088"
+permissions_nodes_contract_enabled: "true"
+permissions_accounts_contract_enabled: "true"

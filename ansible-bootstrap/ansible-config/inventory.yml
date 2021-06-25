@@ -1,0 +1,26 @@
+blockchain:
+  hosts:
+     node1:
+      ansible_connection: ssh
+      ansible_user: besu
+      ansible_ssh_pass: password
+      ansible_python_interpreter: /usr/bin/python3
+      remoteDir:  /home/besu/ibsi/node1
+     node2:
+      ansible_connection: ssh
+      ansible_user: besu
+      ansible_ssh_pass: password
+      ansible_python_interpreter: /usr/bin/python3
+      remoteDir:  /home/besu/ibsi/node2
+     node3:
+      ansible_connection: ssh
+      ansible_user: besu
+      ansible_ssh_pass: password
+      ansible_python_interpreter: /usr/bin/python3
+      remoteDir:  /home/besu/ibsi/node3
+     node4:
+      ansible_connection: ssh
+      ansible_user: besu
+      ansible_ssh_pass: password
+      ansible_python_interpreter: /usr/bin/python3
+      remoteDir:  /home/besu/ibsi/node4

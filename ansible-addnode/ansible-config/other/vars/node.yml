@@ -1,0 +1,13 @@
+p2p_host: 127.0.0.1
+p2p_port: 30303
+besu_version: 21.1.4
+container_name: node
+rpc_port: 8545
+ws_port: 8546
+metrics_port: 9545
+alethio_server_url: http://127.0.0.1:3010 
+alethio_account_email: nome.cognome@node.it
+alethio_client_node_name: node
+node_key: "0xba0d5aaa9b879d5ca........f97ba04bfe562107ae2e640"
+permissions_nodes_contract_enabled: "true"
+permissions_accounts_contract_enabled: "true"

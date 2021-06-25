@@ -1,0 +1,91 @@
+- name:  Add node
+  hosts: all
+  gather_facts: no
+  tasks:
+  
+    - name: Include host specific variables
+      tags:
+         - loadvar
+      include_vars: "vars/{{inventory_hostname}}.yml"  
+
+    - name: Download zip
+      delegate_to: 127.0.0.1 	
+      get_url:
+       url: "https://hyperledger.jfrog.io/artifactory/besu-binaries/besu/21.1.4/besu-21.1.4.zip"
+       dest: "../../deploy/besu-21.1.4.zip"
+      tags: [ never, downloadbesu ]
+  
+    - name: unzip
+      delegate_to: 127.0.0.1 	
+      ansible.builtin.unarchive:
+         src: "../../deploy/besu-21.1.4.zip"
+         dest: "../../deploy/"
+      tags: [ never, unzipbesu ]
+  
+    - name: Generazione materiale crittografico
+      local_action: ansible.builtin.command sh ../../deploy/generate_crypto.sh {{ groups['blockchain'] | length }} {{ p2p_host }} {{ p2p_port }} {{ container_name }}
+      tags: [ never, crypto ]
+      
+    - name: Generazione Admin smartcontract
+      local_action: ansible.builtin.command sh ../../deploy/generate_crypto.sh
+      tags: [ never, adminsc ]      
+    
+    - name: copying file node 
+      tags:
+         - copyfile
+      copy:
+        src: ../../deploy/besu/node/ 
+        dest: "{{ remoteDir }}"
+        
+    - name: docker file
+      tags:
+         - docker
+      template: 
+        src: ../../deploy/besu/template/docker-compose.yml
+        dest: "{{ remoteDir }}/docker-compose.yml"
+
+    - name: Creates keys directory
+      file:
+        path: "{{ remoteDir }}/keys"
+        state: directory
+    
+    - name: key file
+      tags:
+         - key
+      copy:
+        content: "{{node_key}}"
+        dest: "{{ remoteDir }}/keys/node.key"
+
+    - name: config file
+      tags:
+         - config
+      template: 
+        src: ../../deploy/besu/template/config.toml
+        dest: "{{ remoteDir }}/config/config.toml"          
+  
+    - name: start docker
+      tags:
+         - start 
+      community.docker.docker_compose:
+        project_src: "{{ remoteDir }}"
+        files:
+          - docker-compose.yml
+        state: present 
+        restarted: yes
+        
+    - name: restart ethstats-cli
+      tags:
+         - restart ethstats client
+      community.docker.docker_compose:
+        project_src: "{{ remoteDir }}"
+        files:
+          - docker-compose.yml
+        state: present
+        services: explorer-client-alethio 
+        restarted: yes  
+      tags: [ never, ethstats ]                    
+        
+
+  
+
+   

@@ -1,0 +1,40 @@
+---
+  version: '3.4'
+  services:
+  
+    node:
+      user: "root:root"
+      container_name: {{container_name}}
+      image: hyperledger/besu:{{besu_version}}
+      entrypoint: /opt/besu/bin/besu
+      command: &base_options [
+        "--config-file=/config/config.toml",
+      ]
+      volumes:
+        - ./config/config.toml:/config/config.toml
+        - ./config/ibft2GenesisPermissioning.json:/config/genesis.json
+        - ./keys/node.key:/opt/besu/keys/node.key
+        - node:/opt/besu/data
+      ports:
+        - {{rpc_port}}:{{rpc_port}}/tcp
+        - {{ws_port}}:{{ws_port}}/tcp
+        - {{metrics_port}}:{{metrics_port}}/tcp
+        - {{p2p_port}}:{{p2p_port}}/tcp
+        - {{p2p_port}}:{{p2p_port}}/udp
+
+    explorer-client-alethio:
+      container_name: explorer-client-alethio-{{container_name}}
+      network_mode: host
+      image: alethio/ethstats-cli
+      command: &options [
+          "--register",
+          "--account-email={{alethio_account_email}}",
+          "--node-name={{alethio_client_node_name}}",
+          "--server-url={{alethio_server_url}}",
+          "--client-url=ws://127.0.0.1:{{ws_port}}"
+     ]
+   
+  volumes:
+  
+    node:
+      name:  "{{container_name}}_vol"

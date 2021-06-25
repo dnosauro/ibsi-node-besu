@@ -1,0 +1,11 @@
+- name:  Deploying blockchain infrastructure and smart contracts
+  hosts: 127.0.0.1
+  tasks:
+   - name: compile smart contract
+     tags:
+       - compile
+     command: sh ../deploy/compile.sh
+   - name: install smart contract
+     tags:
+       - install
+     command: sh ../deploy/install.sh     

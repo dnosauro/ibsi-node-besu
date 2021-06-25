@@ -1,0 +1,18 @@
+---
+  version: '3.4'
+  services:
+
+    dapp:
+      user: "root:root"
+      build: .
+      image: ibsi_permissioning_dapp
+      container_name: ibsi_permissioning_dapp
+      environment:
+        BESU_NODE_PERM_ACCOUNT: {{besu_node_perm_account}}
+        BESU_NODE_PERM_KEY: {{besu_node_perm_key}}
+        BESU_NODE_PERM_ENDPOINT: {{besu_node_perm_endpoint}}
+        NODE_ENV: "development"
+
+      ports:
+        - 3001:80/tcp
+

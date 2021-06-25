@@ -1,0 +1,57 @@
+- name:  Deploying blockchain infrastructure and smart contracts
+  hosts: besu3
+  tasks:
+
+    - name: Include host specific variables
+      tags:
+         - loadvar
+      include_vars: "../ansible-config/vars/dapp.yml"  
+        
+    - name: copying file dapp 
+      tags:
+         - copyfile
+      copy:
+        src: ../deploy/besu/dapp/ 
+        dest: "{{ remoteDir }}/permissioning-dapp"
+        
+    - name: config file
+      tags:
+         - config
+      template: 
+        src: ../deploy/besu/template/config-dapp.json
+        dest: "{{ remoteDir }}/permissioning-dapp/config/config.json"
+
+    - name: config dapp
+      tags:
+         - configdapp
+      template: 
+        src: ../deploy/besu/template/docker-compose-dapp.yml
+        dest: "{{ remoteDir }}/permissioning-dapp/docker-compose.yml"
+
+    - name: copying build
+      tags:
+        - copybuild
+      copy:
+        src: ../deploy/permissioning-smart-contracts/build/
+        dest: "{{ remoteDir }}/permissioning-dapp/build/"
+  
+    - name: start docker
+      tags:
+         - startdapp
+      community.docker.docker_compose:
+        project_src: "{{ remoteDir }}/permissioning-dapp/"
+        build: yes
+        files:
+          - docker-compose.yml
+        state: present 
+        restarted: yes
+      register: output
+      
+    - ansible.builtin.debug:
+        var: output              
+        
+        
+
+  
+
+   

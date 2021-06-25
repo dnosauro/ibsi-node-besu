@@ -1,0 +1,41 @@
+logging="INFO"
+data-path="/opt/besu/data"
+host-whitelist=["*"]
+genesis-file="/config/genesis.json"
+node-private-key-file="/opt/besu/keys/node.key"
+
+#bootnodes
+bootnodes=["enode://00ad501305bf602b71d44e6b8871c017d7cb40ad4a93ea96d506613d39634658d06927b01c3712fdf0f5366395c014b83cbc79ced198f04f706f34271ace2232@51.144.136.156:30303","enode://b693aeb7fb563a5afd8d188d5c5d07355c2c02db63be9eb71e1f4557d69e49aafb94ec4877bbbcddc2f26fd901c2e3d673090aa75cbc23f3a78254f76f7cfb10@51.144.136.156:31303","enode://eea1237734dae0cc610f6e457690f63ff1d9deb927f7b98b3c2094b5c90fb3b2c0e1a3d2016af26167655e0709485a8846149b3838d3ba3fe8b0fec3c30f6cf0@20.71.49.133:32303","enode://71523b57885b8c915d1b2ea22f0c08a55b2ccffceee756b1b61ff789d4b7a616c7fc1fb9f5f72a5ea6c5a7579dad45769017f82e861f6a30e691a26b72c2b8e8@20.71.49.133:33303"]
+
+# rpc
+rpc-http-enabled=true
+rpc-http-host="0.0.0.0"
+rpc-http-port={{rpc_port}}
+rpc-http-cors-origins=["*"]
+
+# ws
+rpc-ws-enabled=true
+rpc-ws-host="0.0.0.0"
+rpc-ws-port={{ws_port}}
+
+# metrics
+metrics-enabled=true
+metrics-host="0.0.0.0"
+metrics-port={{metrics_port}}
+
+#nat e p2p
+nat-method="NONE"
+p2p-host="{{p2p_host}}"
+p2p-port={{p2p_port}}
+
+min-gas-price=0
+
+rpc-http-api=["WEB3","ETH","NET","IBFT","ADMIN","PERM"]
+rpc-ws-api=["WEB3","ETH","NET","IBFT","ADMIN","PERM"]
+
+permissions-accounts-contract-address="0x0000000000000000000000000000000000008888"
+permissions-nodes-contract-address="0x0000000000000000000000000000000000009999"
+
+permissions-nodes-contract-enabled={{permissions_nodes_contract_enabled}}
+permissions-accounts-contract-enabled={{permissions_accounts_contract_enabled}}
+permissions-nodes-contract-version=2

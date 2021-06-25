@@ -1,0 +1,12 @@
+node:
+  hosts:
+     besu3:
+      ansible_connection: ssh
+      ansible_user: besu
+      ansible_ssh_pass: password
+      ansible_python_interpreter: /usr/bin/python3
+      remoteDir:  /home/besu/
+     
+
+    
+
