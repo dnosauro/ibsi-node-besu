@@ -1,4 +1,4 @@
-# Italian Blockchain Services Infrastructure (IBSI)
+# Public-Permissioned Blockchain 
 
 
 ### Contenuto
